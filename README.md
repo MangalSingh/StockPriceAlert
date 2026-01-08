@@ -75,9 +75,12 @@ This module UI for Luma is designed with:
 
 ## Installation
 
-### Composer (recommended)
-```bash
-composer require vendor/module-out-of-stock-notification
-bin/magento module:enable Vendor_OutOfStockNotification
+Upload/extract to: app/code/Octocub/StockPriceAlert/
+
+Run:
+
+bin/magento module:enable Octocub_StockPriceAlert
 bin/magento setup:upgrade
 bin/magento cache:flush
+
+if any issue please contact me mangalsingh16ptd@gmail.com
