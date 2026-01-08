@@ -80,7 +80,9 @@ Upload/extract to: app/code/Octocub/StockPriceAlert/
 Run:
 
 bin/magento module:enable Octocub_StockPriceAlert
+
 bin/magento setup:upgrade
+
 bin/magento cache:flush
 
 if any issue please contact me mangalsingh16ptd@gmail.com
