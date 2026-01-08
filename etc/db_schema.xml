@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="octocub_spa_subscription" resource="default" engine="innodb" comment="Stock Price Alert Subscriptions">
+        <column xsi:type="int" name="subscription_id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="subscription_id"/>
+        </constraint>
+
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" comment="Product ID"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="true" comment="Customer ID"/>
+        <column xsi:type="varchar" name="email" nullable="false" length="255" comment="Subscriber Email"/>
+        <column xsi:type="varchar" name="alert_type" nullable="false" length="16" comment="stock|price"/>
+        <column xsi:type="int" name="website_id" unsigned="true" nullable="false" comment="Website ID"/>
+        <column xsi:type="int" name="store_id" unsigned="true" nullable="false" comment="Store ID"/>
+        <column xsi:type="int" name="customer_group_id" unsigned="true" nullable="false" default="0" comment="Customer Group Snapshot"/>
+
+        <column xsi:type="decimal" name="target_price" scale="4" precision="12" nullable="true" comment="Target price for price alerts"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="16" default="pending" comment="pending|confirmed|notified|canceled"/>
+
+        <column xsi:type="smallint" name="consent_accepted" nullable="false" default="0" comment="Consent Accepted"/>
+        <column xsi:type="text" name="consent_text_snapshot" nullable="true" comment="Consent Text Snapshot"/>
+        <column xsi:type="timestamp" name="consent_at" nullable="true" default="NULL" on_update="false" comment="Consent Timestamp"/>
+        <column xsi:type="varchar" name="consent_ip" nullable="true" length="64" comment="Consent IP"/>
+        <column xsi:type="varchar" name="consent_user_agent" nullable="true" length="255" comment="Consent User Agent"/>
+
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" comment="Created"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated"/>
+
+        <index referenceId="OCTOCUB_SPA_SUBSCRIPTION_PRODUCT" indexType="btree">
+            <column name="product_id"/>
+            <column name="alert_type"/>
+            <column name="status"/>
+        </index>
+        <index referenceId="OCTOCUB_SPA_SUBSCRIPTION_EMAIL" indexType="btree">
+            <column name="email"/>
+        </index>
+    </table>
+
+    <table name="octocub_spa_queue" resource="default" engine="innodb" comment="Stock Price Alert Queue">
+        <column xsi:type="int" name="queue_id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="queue_id"/>
+        </constraint>
+
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" comment="Product ID"/>
+        <column xsi:type="int" name="website_id" unsigned="true" nullable="false" comment="Website ID"/>
+        <column xsi:type="varchar" name="reason" nullable="false" length="32" comment="stock_change|price_scan"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="16" default="pending" comment="pending|processing|done|error"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" comment="Created"/>
+        <column xsi:type="timestamp" name="processed_at" nullable="true" default="NULL" on_update="false" comment="Processed At"/>
+
+        <index referenceId="OCTOCUB_SPA_QUEUE_LOOKUP" indexType="btree">
+            <column name="product_id"/>
+            <column name="website_id"/>
+            <column name="status"/>
+        </index>
+    </table>
+
+</schema>

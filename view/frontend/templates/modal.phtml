@@ -1,0 +1,37 @@
+<div id="octocub-spa-modal" style="display:none;">
+    <div class="octocub-spa-modal-body">
+        <p class="octocub-spa-title"></p>
+
+        <form id="octocub-spa-form">
+            <input type="hidden" name="product_id" value="">
+            <input type="hidden" name="alert_type" value="stock">
+
+            <div class="field email required">
+                <label><?= $block->escapeHtml(__('Email')) ?></label>
+                <input type="email" name="email" required="required" />
+            </div>
+
+            <div class="field consent" data-consent-wrapper="1" style="margin-top:10px;">
+                <label>
+                    <input type="checkbox" name="consent" value="1"/>
+                    <span data-consent-text="1"></span>
+                </label>
+            </div>
+
+            <div style="margin-top:10px;">
+                <button type="submit" class="action primary"><?= $block->escapeHtml(__('Subscribe')) ?></button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+window.OCTOCUB_SPA = window.OCTOCUB_SPA || {};
+window.OCTOCUB_SPA.subscribeUrl = '<?= $block->escapeUrl($block->getUrl("octocub_spa/subscribe/index")) ?>';
+window.OCTOCUB_SPA.consentRequired = <?= (int)$block->getConsentRequired() ?>;
+window.OCTOCUB_SPA.consentText = <?= json_encode((string)$block->getConsentText()) ?>;
+</script>
+
+<script>
+require(['octocubSpaModal'], function (init) { init(); });
+</script>

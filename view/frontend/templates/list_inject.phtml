@@ -1,0 +1,31 @@
+<script>
+require(['jquery'], function ($) {
+    $(function () {
+        $('.product-item').each(function () {
+            var $item = $(this);
+            if ($item.find('.octocub-spa-btn').length) return;
+
+            // If add to cart exists, assume salable (theme dependent)
+            var hasAddToCart = $item.find('form[data-role="tocart-form"], .action.tocart').length > 0;
+            if (hasAddToCart) return;
+
+            var pid = $item.find('input[name="product"]').val() || $item.find('[data-product-id]').attr('data-product-id');
+            if (!pid) return;
+
+            var name = $item.find('.product-item-link').first().text().trim();
+
+            var $actions = $item.find('.product-item-actions');
+            if (!$actions.length) $actions = $item;
+
+            var btn = $('<button/>', {
+                type: 'button',
+                class: 'action primary octocub-spa-btn',
+                text: 'Notify me'
+            }).attr('data-product-id', pid)
+              .attr('data-product-name', name);
+
+            $actions.append(btn);
+        });
+    });
+});
+</script>

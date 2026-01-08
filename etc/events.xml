@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="inventory_source_items_save_after">
+        <observer name="octocub_spa_enqueue_inventory_change" instance="Octocub\StockPriceAlert\Observer\EnqueueOnInventoryChange"/>
+    </event>
+</config>

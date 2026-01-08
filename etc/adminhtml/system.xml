@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="octocub_spa" translate="label" sortOrder="900" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Stock &amp; Price Alerts</label>
+            <tab>general</tab>
+            <resource>Octocub_StockPriceAlert::config</resource>
+
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="enable_stock" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Stock Alerts</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="enable_price" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Price Alerts</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="allow_guest" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Guest Subscribe</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="double_opt_in" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Double Opt-in (Optional)</label>
+                    <comment>Keep off if you want instant subscriptions.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <group id="consent" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>GDPR Consent</label>
+
+                <field id="consent_required" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Require Consent Checkbox</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="consent_text" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Consent Checkbox Text</label>
+                    <comment>Store view specific. This text will be stored as snapshot when user subscribes.</comment>
+                </field>
+            </group>
+
+            <group id="send" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Sending &amp; Limits</label>
+
+                <field id="notify_mode" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notification Limit Mode</label>
+                    <source_model>Octocub\StockPriceAlert\Model\Config\Source\NotifyMode</source_model>
+                    <comment>Match salable qty will send only up to available items (FIFO).</comment>
+                </field>
+
+                <field id="fixed_limit" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Fixed Limit per Run</label>
+                    <comment>Used only if notify_mode = fixed.</comment>
+                </field>
+
+                <field id="email_sender" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+            </group>
+
+            <group id="templates" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email Templates</label>
+
+                <field id="stock_template_default" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Stock Alert Template (Default)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+
+                <field id="price_template_default" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Price Alert Template (Default)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+
+                <field id="stock_template_by_group" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Stock Templates by Customer Group (JSON)</label>
+                    <comment>{"1":"email_template_identifier","2":"email_template_identifier"}</comment>
+                </field>
+
+                <field id="price_template_by_group" translate="label" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Price Templates by Customer Group (JSON)</label>
+                    <comment>{"1":"email_template_identifier","2":"email_template_identifier"}</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
